@@ -1,6 +1,6 @@
 
 
-class API:
+class api_call:
     """Represents API information to be used for calls from the user and stores that information
     for easier use."""
 
