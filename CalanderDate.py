@@ -1,6 +1,6 @@
 
 
-class api_call:
+class UserCalanderDate:
     """Represents API information to be used for calls from the user and stores that information
     for easier use."""
 
