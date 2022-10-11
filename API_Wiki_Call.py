@@ -17,10 +17,10 @@ def API_Wiki_Call():
     query = {'action':'opensearch', 'namespace':0, 'search': user_date, 'limit':1}
     url ='https://en.wikipedia.org/w/api.php'
 
-    # This will try to get the request from wiki, if it fails for some reason, a message will print, 
-    # and return the error, api manager should handle errors from the API call.  Assuming it is successful, 
-    # and there is an item now in wiki_date_page_selection, that will then be stored in extracted_page_url, and returned. 
-    # If there is nothing returned, it will print a message and return None.
+    """ This will try to get the request from wiki, if it fails for some reason, a message will print, 
+     and return the error, api manager should handle errors from the API call.  Assuming it is successful, 
+     and there is an item now in wiki_date_page_selection, that will then be stored in extracted_page_url, and returned. 
+     If there is nothing returned, it will print a message and return None. """
     try:
         wiki_date_page_selection = requests.get(url, params = query).json()
 
