@@ -29,12 +29,11 @@ def API_Wiki_Call():
             return extracted_page_url
         
         else:
-            print('No page was found with that date')
             return None
     
     except Exception as e:
-        print('API connection failed', e)
-        return e
+        print(e)
+        return False
 
   
 main()
