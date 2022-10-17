@@ -2,17 +2,10 @@
 """"Using Wikipedia's API to return the events that happened on the day chosen by the user."""
 
 import requests
+import API_Response
 
-#This main call only exists for the purposes of testing this function, 
-# this will be removed in the final version as the API manager will handle the calls.
-def main():
-    API_Wiki_Call()
-    
 
-def API_Wiki_Call():
-
-    #User_date will be a string that contains the date that will be used in the query string, this will be passed to the function in a later version.
-    user_date = "October 9"
+def API_Wiki_Call(user_date):
 
     query = {'action':'opensearch', 'namespace':0, 'search': user_date, 'limit':1}
     url ='https://en.wikipedia.org/w/api.php'
@@ -22,18 +15,31 @@ def API_Wiki_Call():
      and there is an item now in wiki_date_page_selection, that will then be stored in extracted_page_url, and returned. 
      If there is nothing returned, it will print a message and return None. """
     try:
-        wiki_date_page_selection = requests.get(url, params = query).json()
-
-        if wiki_date_page_selection:
-            extracted_page_url = wiki_date_page_selection[3]
-            return extracted_page_url
+            wiki_date_page_selection = requests.get(url, params = query).json()
+            wiki_data_check = wiki_date_page_selection[3]
+            print(wiki_data_check)
+            if wiki_data_check:
+                data = wiki_date_page_selection
+                user_error = False
+                connection_error = False
+                status_description = 'Success'
+                wiki_api_response = API_Response.API_Response(data, user_error, connection_error, status_description)
+                return wiki_api_response
+            
+            else:
+                data = None
+                user_error = True
+                connection_error = False
+                status_description = 'Error with the date provided by user, please ensure date is not in the future.'
+                wiki_api_response = API_Response.API_Response(data, user_error, connection_error, status_description)
+                return wiki_api_response
         
-        else:
-            return None
-    
     except Exception as e:
-        print(e)
-        return False
+            data = None
+            user_error = False
+            connection_error = True
+            status_description = e
+            wiki_api_response = API_Response.API_Response(data, user_error, connection_error, status_description)
+            return wiki_api_response
 
   
-main()
