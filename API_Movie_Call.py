@@ -27,16 +27,23 @@ movie_discover_url = 'https://api.themoviedb.org/3/discover/movie?'
 # URL for the images, w500 is not part of the base url, but it is the max width for a poster.
 movie_images_url = 'https://image.tmdb.org/t/p/w500/'
 
-def main():
+def movie_call(date):
+    year, month, day = split_date(date)
     query =set_api_discover_params(year, month, day, key)
     data = api_movie_request(movie_discover_url, query)
     movie_raw = get_movie_results(data)
-    movie_title, movie_overview, movie_poster_path = get_movie_details(movie_raw)
-    movie_img_link = get_movie_image(movie_poster_path)
+    # movie_title, movie_overview, movie_poster_path = get_movie_details(movie_raw)
+    # movie_img_link = get_movie_image(movie_poster_path)
+    movie_info = get_movie_details(movie_raw)
 
-    print(movie_title)
-    print(movie_overview)
-    print(movie_img_link)
+    # print(movie_title)
+    # print(movie_overview)
+    # print(movie_img_link)
+    return movie_info
+
+def split_date(date):
+    date_split = date.split('-')
+    return date_split[0], date_split[1], date_split[2]
 
 def set_api_discover_params(year, month, day, key) -> dict:
     '''
@@ -82,11 +89,16 @@ def get_movie_details(movie_dict):
     '''
     Takes one movie and returns its title, poster image path, and an overview of what the movie is.
     '''
-    movie_title = movie_dict['title']
-    movie_desc = movie_dict['overview']
+    # movie_title = movie_dict['title']
+    # movie_desc = movie_dict['overview']
     movie_poster_path = movie_dict['poster_path']
-
-    return movie_title, movie_desc, movie_poster_path
+    movie_poster_url = get_movie_image(movie_poster_path)
+    return {
+        'title': movie_dict['title'],
+        'desc': movie_dict['overview'],
+        'poster': movie_poster_url
+    }
+    # return movie_title, movie_desc, movie_poster_path
 
 def get_movie_image(poster_path):
     '''
@@ -111,4 +123,4 @@ def check_date_format(year, month, day) -> bool:
 # Think maybe it should return the highest rated movie from the given day with a poster link. 
 
 if __name__ == '__main__':
-    main()
+    movie_call()

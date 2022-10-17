@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Movie Title: {{ movie_info.title }}</h1>
+
+<p>Movie Overview: {{ movie_info.desc }}</p>
+
+<p>
+    <img src="{{ movie_info.poster }}">
+</p>
+
+<p>Do you want to try again? <a href="/">Go back to the home page.</a></p>
+
+{% endblock %}
