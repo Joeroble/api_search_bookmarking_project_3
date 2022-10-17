@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Discover more about a day from the past</h1>
+
+<h2>Select a day to learn more about</h2>
+
+<form method='get' action="get_date">
+    <label>Select Date </label>
+    <input type="date" name="search_date"
+    min="1995-06-16">
+    <button type="submit">Search</button>
+
+</form>
+    
+{% endblock %}
