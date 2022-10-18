@@ -20,7 +20,7 @@ def get_date_info():
     print('form date is: ', request.args)
     date_to_search = request.args.get('search_date')
     movie_info = movie_call(date_to_search)
-    return render_template('api_results.html', movie_info=movie_info)
+    return render_template('api_results.html', movie_info=movie_info.data)
 
 
 if __name__ == '__main__':

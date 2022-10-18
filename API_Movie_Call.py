@@ -8,16 +8,8 @@ movie will be returned to the API Manager.
 '''
 import os
 import requests
-from pprint import pprint # Imported pprint of testing, should be removed once UI display is hooked up
+import API_Response
 
-# Hard coded year month and day will be replaced once we are able to pass
-# a date object that these variables can be extrated from. 
-# Day month year need to be in string format because the API is expecteing a ####-##-## format for Year-Month-Day
-##################
-year = '2010'
-month = '08'
-day = '23'
-##################
 
 # Gets the API key from my local system variables.
 key = os.environ.get('MOVIE_KEY')
@@ -27,30 +19,25 @@ movie_discover_url = 'https://api.themoviedb.org/3/discover/movie?'
 # URL for the images, w500 is not part of the base url, but it is the max width for a poster.
 movie_images_url = 'https://image.tmdb.org/t/p/w500/'
 
+movie_api_response = API_Response.API_Response() # Create a global API Response object so the movie functions can write to it. 
+
 def movie_call(date):
-    year, month, day = split_date(date)
+    
+    year, month, day = date.split('-') # Date is expected in YYYY-MM-DD format.
     query =set_api_discover_params(year, month, day, key)
     data = api_movie_request(movie_discover_url, query)
     movie_raw = get_movie_results(data)
     # movie_title, movie_overview, movie_poster_path = get_movie_details(movie_raw)
     # movie_img_link = get_movie_image(movie_poster_path)
-    movie_info = get_movie_details(movie_raw)
+    get_movie_details(movie_raw)
 
-    # print(movie_title)
-    # print(movie_overview)
-    # print(movie_img_link)
-    return movie_info
-
-def split_date(date):
-    date_split = date.split('-')
-    return date_split[0], date_split[1], date_split[2]
+    return movie_api_response
 
 def set_api_discover_params(year, month, day, key) -> dict:
     '''
     Takes a date object seperated by components and an API key and returns the 
     api call query parameters.
     '''
-    # TODO potential if statement to check year, month, day are type string.
     # Query for discovery
     query = {'api_key':key, 
     'language':'en-US', # Language sets the movies title string so we return english version names of movies
@@ -69,10 +56,16 @@ def api_movie_request(url, query):
     '''
     Takes a url and a query string and returns json data.
     '''
+    try:
+        response = requests.get(url, params=query)
+        data = response.json()
+        return data
 
-    data = requests.get(url, params=query).json()
-
-    return data
+    except Exception as ex:
+        print(f'URL Response Error. {ex}')
+        movie_api_response.connection_error = ex
+    
+    
 
 def get_movie_results(json_data) -> dict:
     '''
@@ -85,38 +78,25 @@ def get_movie_results(json_data) -> dict:
     else:
         return 'Your movie is in another castle.'
 
-def get_movie_details(movie_dict):
+def get_movie_details(movie_dict) -> dict:
     '''
-    Takes one movie and returns its title, poster image path, and an overview of what the movie is.
+    Takes one movie and returns its title, poster image path, and an overview of what the movie as a dictionary.
     '''
-    # movie_title = movie_dict['title']
-    # movie_desc = movie_dict['overview']
+    
     movie_poster_path = movie_dict['poster_path']
-    movie_poster_url = get_movie_image(movie_poster_path)
-    return {
+    movie_poster_url = get_movie_image(movie_poster_path) # Call gets full image url path.
+    movie_api_response.data = {
         'title': movie_dict['title'],
         'desc': movie_dict['overview'],
         'poster': movie_poster_url
     }
-    # return movie_title, movie_desc, movie_poster_path
 
-def get_movie_image(poster_path):
+def get_movie_image(poster_path) -> str:
     '''
     Takes the movies poster path, joins it with the base image URL and returns a path to the movie poster.
     '''
     movie_poster_url = f'{movie_images_url}{poster_path}'
     return movie_poster_url
-
-# Is this needed, should API Call be checking the date again or should this check be happening before the date is passed
-# To the call.
-def check_date_format(year, month, day) -> bool:
-    '''
-    Checks to make sure the dates passed are a String before formatting the query params
-    '''
-    if type(year) != str or type(month) != str or type(day) != str:
-        return False
-    else:
-        return True
     
 
 #TODO Some movies do not have poster paths, and some movies are straight to DVD. Need to add some functions to search through the list of 20 movies
