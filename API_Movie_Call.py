@@ -27,8 +27,6 @@ def movie_call(date):
     query =set_api_discover_params(year, month, day, key)
     data = api_movie_request(movie_discover_url, query)
     movie_raw = get_movie_results(data)
-    # movie_title, movie_overview, movie_poster_path = get_movie_details(movie_raw)
-    # movie_img_link = get_movie_image(movie_poster_path)
     get_movie_details(movie_raw)
 
     return movie_api_response
