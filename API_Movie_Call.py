@@ -42,11 +42,13 @@ def set_api_discover_params(year, month, day, key) -> dict:
     'sort_by':'release_date.desc', # Sorts the results of the API Call.
     'include_adult':'false',
     'include_video':'false',
-    'page':'1', # Page represents what page of the results will be looked at.
-    'primary_release_year':year, 
+    'page':'1', # Page represents what page of the results will be looked at. 
     'primary_release_date.lte':f'{year}-{month}-{day}',
     'vote_average.gte':'3', 
-    'with_original_language':'en'}
+    'with_original_language':'en',
+    'with_runtime.gte' : 60,
+    'without_genres': 10770 # 10770 is TV Movie releases.
+    }
 
     return query
 
