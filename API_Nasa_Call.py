@@ -1,23 +1,34 @@
 # Calls Nasa's API to return a picture of the APOD and return the link to the image for now until Flask is setup.
 
-'''This API ask a user to enter a specific date between beginning_date which is 1995-6-16 until today_date the current day
- and fetch a picture from APOD url and show the picture in web browser from now until we decide to use Flask '''
+"""This API ask a user to enter a specific date between beginning_date which is 1995-6-16 until today_date the current day
+ and fetch a picture from APOD url and show the picture in web browser from now until we decide to use Flask """
 
+from urllib import response
+from wsgiref.simple_server import server_version
 import requests
 import datetime
 from datetime import date
-import webbrowser 
+#import webbrowser 
+import os 
+from pprint import pprint
+from flask import Flask
 
-'''This function set a range of valid dates 
-    if the user enter the right dates it will return the date_pic if not it will ask them to enter the right dates'''
-    
-    # Get a picture for a specific date
+app = Flask(__name__)
+
+"""This function set a range of valid dates 
+    if the user enter the right dates it will return the date_pic if not it will ask them to enter the right dates"""
+
+
+
+
+
+# Get a picture for a specific date
 def get_date(): 
 
     today_date = date.today() 
     beginning_date = datetime.date(1995, 6, 16)  
     
-    # recursively iterate over a list of False.
+    
     while True:
         
         print('Enter the following so we can get you a picture for the specific date you choose: ')
@@ -38,52 +49,55 @@ def get_date():
 
         # Checks if the date_pic is within the beginning_date and today_date.
         if date_pic <= today_date and date_pic >= beginning_date:
-            # # Returns a date_pic based on the current date and the beginning date.
+            
+            # Returns a date_pic based on the current date and the beginning date.
             return date_pic
 
 
-'''This function Returns the url for a given date.'''
-def get_url(date):
-    # API KEY.
-    API_KEY = '5c651pUEm3faSaZkgZ8vi2sKF7zntRQ2oXXXVhrc'
-    
-    # API URL for a planetary apod
-    url = f'https://api.nasa.gov/planetary/apod?api_key={API_KEY}&date={date}'
 
-# Returns a URL for a given URL.
-    return url
 
-        
 
-'''This function Fetch the image URL from the given url.'''
-def fetch_image_url(url):
+@app.route('/')
+
+def fetch_url(date):
     
     try:
-        response = requests.get(url).json()
-        image_url = response['url']
-        return image_url
+        key = os.environ.get('NASA_KEY')
+    # API URL for a planetary apod
+        query = {'api_key':key,'date': date}
+        url = f'https://api.nasa.gov/planetary/apod'
+
+        response = requests.get(url,params=query).json()
+        
+        paramaters = {
+        "date":response ['date'],
+        "explanation": response ['explanation'],
+        "hdurl": response['hdurl'],
+        "media_type": response ['media_type'],
+        "service_version": response ['service_version'],
+       "title": response ['title'],
+       "url": response ['url']
+        }
+        return paramaters
+
     except:
         print('Error extracting image')
-        return 'except'
+        return 'except' 
 
 
-
-
-'''This function Fetch image from webbrowser if it exists.'''
 def main():
 
     user_date = get_date()
-    api_url = get_url(user_date)
-    image_url = fetch_image_url(api_url)
+    params = fetch_url(user_date)
     
-    if not image_url == 'except':
+    pprint(params)
+    if not fetch_url == 'except':
         try:
-            webbrowser.open(image_url)  # "for now" to open a pic in a web browser 
-            
+            app.run(debug=True,port = 2000)
             print('Success')
             
         except: 
             print('error opening image')
         
-    
-main()
+if __name__   == "__main__":
+    main()
