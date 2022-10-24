@@ -23,7 +23,7 @@ def API_Wiki_Call(user_date):
             wiki_data_check = wiki_date_page_selection[3]
 
             if wiki_data_check:
-                data = wiki_date_page_selection
+                data = wiki_date_page_selection[3]
                 wiki_api_response.data = data
                 return wiki_api_response
             
