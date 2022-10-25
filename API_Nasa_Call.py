@@ -38,9 +38,28 @@ def nasa_call(date):
 
         response = requests.get(url,params=query).json()
         
+ nasa_api_setup_update
         """
         Check if the data is accurate  by date 
+=======
+ Updated upstream
+        paramaters = {
+        "date":response ['date'],
+        "explanation": response ['explanation'],
+        "hdurl": response['hdurl'],
+        "media_type": response ['media_type'],
+        "service_version": response ['service_version'],
+       "title": response ['title'],
+       "url": response ['url']
+        }
+        return paramaters
+
+    except:
+        print('Error extracting image')
+        return 'except' 
+=======
         """
+ 
         calendar2 = CalendarDate.CalendarDate(response['date'])
         Date = calendar2.get_date()       
         
@@ -49,6 +68,7 @@ def nasa_call(date):
         if  Date == date:
             nasa_api_response.data = response
         return nasa_api_response
+
 
 
     except Exception as e:
