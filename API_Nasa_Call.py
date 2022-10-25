@@ -1,75 +1,48 @@
-# Calls Nasa's API to return a picture of the APOD and return the link to the image for now until Flask is setup.
+"""
+API calls nasa url to return a picture of the day and its information(url, date, copyright, explanatian, and title)based on the given date 
+then return it to API Manager.
 
-"""This API ask a user to enter a specific date between beginning_date which is 1995-6-16 until today_date the current day
- and fetch a picture from APOD url and show the picture in web browser from now until we decide to use Flask """
+"""
 
-from urllib import response
-from wsgiref.simple_server import server_version
 import requests
-import datetime
-from datetime import date
-#import webbrowser 
 import os 
 from pprint import pprint
-from flask import Flask
+import API_Response
+import CalendarDate
 
-app = Flask(__name__)
+""" Create a global API Response object so the nasa functions can write to it."""
 
-"""This function set a range of valid dates 
-    if the user enter the right dates it will return the date_pic if not it will ask them to enter the right dates"""
+nasa_api_response = API_Response.API_Response()
 
-
-
-
-
-# Get a picture for a specific date
-def get_date(): 
-
-    today_date = date.today() 
-    beginning_date = datetime.date(1995, 6, 16)  
-    
-    
-    while True:
+def nasa_call(date):    
+    try: 
+        calendar = CalendarDate.CalendarDate(date)
+        date = calendar.get_date()    
+        """
+        check on the date it is in the right range between today date and beginning_date 
+        return the user_error 
+        (if there is an error it will print an error ,else it will return None)
         
-        print('Enter the following so we can get you a picture for the specific date you choose: ')
-        # Prints a warning message if the date is between the beginning and today.
-        print(f'Make sure date is between {beginning_date} and {today_date}')
+        """
 
-
-        # ask user inputs and return int
-        year = int(input('Enter year: '))
-        month = int(input('Enter month: '))
-        day = int(input('Enter day: '))
-
-
-        # Obtains a local datetime. date object representing the current date.
-        date_pic = datetime.date(year, month, day)
-
-
-
-        # Checks if the date_pic is within the beginning_date and today_date.
-        if date_pic <= today_date and date_pic >= beginning_date:
-            
-            # Returns a date_pic based on the current date and the beginning date.
-            return date_pic
-
-
-
-
-
-@app.route('/')
-
-def fetch_url(date):
-    
-    try:
+        nasa_api_response.user_error = calendar.check_date(date)
+        
+        """ Gets the API key from my local system variables."""
         key = os.environ.get('NASA_KEY')
-    # API URL for a planetary apod
+        
+        """ Set the api key and date."""
         query = {'api_key':key,'date': date}
+        
+        """ URL for apod planetary."""
         url = f'https://api.nasa.gov/planetary/apod'
 
         response = requests.get(url,params=query).json()
         
-<<<<<<< Updated upstream
+ nasa_api_setup_update
+        """
+        Check if the data is accurate  by date 
+=======
+ Updated upstream
         paramaters = {
         "date":response ['date'],
         "explanation": response ['explanation'],
@@ -86,8 +59,7 @@ def fetch_url(date):
         return 'except' 
 =======
         """
-        Check if the data is accurate by date 
-        """
+ 
         calendar2 = CalendarDate.CalendarDate(response['date'])
         Date = calendar2.get_date()       
         
@@ -96,22 +68,9 @@ def fetch_url(date):
         if  Date == date:
             nasa_api_response.data = response
         return nasa_api_response
->>>>>>> Stashed changes
 
 
-def main():
 
-    user_date = get_date()
-    params = fetch_url(user_date)
-    
-    pprint(params)
-    if not fetch_url == 'except':
-        try:
-            app.run(debug=True,port = 2000)
-            print('Success')
-            
-        except: 
-            print('error opening image')
-        
-if __name__   == "__main__":
-    main()
+    except Exception as e:
+            nasa_api_response.connection_error = e
+            return nasa_api_response
