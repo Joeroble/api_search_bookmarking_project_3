@@ -69,6 +69,7 @@ def fetch_url(date):
 
         response = requests.get(url,params=query).json()
         
+<<<<<<< Updated upstream
         paramaters = {
         "date":response ['date'],
         "explanation": response ['explanation'],
@@ -83,6 +84,19 @@ def fetch_url(date):
     except:
         print('Error extracting image')
         return 'except' 
+=======
+        """
+        Check if the data is accurate by date 
+        """
+        calendar2 = CalendarDate.CalendarDate(response['date'])
+        Date = calendar2.get_date()       
+        
+        
+        
+        if  Date == date:
+            nasa_api_response.data = response
+        return nasa_api_response
+>>>>>>> Stashed changes
 
 
 def main():
