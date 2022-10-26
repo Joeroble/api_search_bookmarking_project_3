@@ -30,5 +30,4 @@ def get_date_info():
 
 
 if __name__ == '__main__':
-    app.run()
-## TODO Watch videos on Flask, set up a basic input. 
+    app.run(debug=True, port = 1000)
