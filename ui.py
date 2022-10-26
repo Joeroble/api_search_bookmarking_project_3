@@ -6,10 +6,9 @@ Using that input call the CalanderDate.py to create a userCalanderDate object
 UI passes the calander object to the API Manager and the API Manager will make calls
 to the three APIs using that date. 
 '''
-from datetime import datetime
 from flask import Flask, render_template, request
-from API_Movie_Call import movie_call
-from API_Wiki_Call import API_Wiki_Call
+import API_Manager
+import CalendarDate
 
 app = Flask(__name__)
 
@@ -20,13 +19,16 @@ def homepage():
 @app.route('/get_date')
 def get_date_info():
     print('form date is: ', request.args)
-    date_to_search = request.args.get('search_date')
-    movie_info = movie_call(date_to_search)
-    # TODO handle this with a date module?
-    year, month, day = date_to_search.split('-')
-    wiki_date = datetime(int(year), int(month), int(day))
-    wiki_info = API_Wiki_Call(wiki_date.strftime("%B %d"))
-    return render_template('api_results.html', movie_info=movie_info.data,wiki_link=wiki_info.data[0])
+    date_returned = request.args.get('search_date')
+    date_for_movie = CalendarDate.get_date_parts(date_returned)
+    
+    movie_info = API_Manager.api_moive_call_response(date_for_movie)
+  
+    date_for_wiki = CalendarDate.get_date_month_day_str(date_returned)
+    wiki_info = API_Manager.api_wiki_call_response(date_for_wiki)
+    nasa_info = API_Manager.api_nasa_call_response(date_returned)
+    print(nasa_info)
+    return render_template('api_results.html', movie_info=movie_info.data,wiki_link=wiki_info.data[0],nasa_info=nasa_info.data)
 
 
 if __name__ == '__main__':

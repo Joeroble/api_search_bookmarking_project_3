@@ -1,5 +1,5 @@
 import datetime
-from datetime import date
+from datetime import date, datetime
 import API_Response
 
 class CalanderDate:
@@ -9,9 +9,14 @@ class CalanderDate:
     def __init__(self,date):
         self.date = date # Date is expected in YYYY-MM-DD format.
     
-    def get_date(self):
-        year , month , day = self.date.split('-')
-        return datetime.date(int(year),int(month),  int(day))
+    def get_date_parts(self):
+        year, month, day = self.date.split('-')
+        return (year, month, day)
+    
+    def get_date_month_day_str(self):
+        year, month, day = self.get_date_parts()
+        datetime_date = datetime(int(year), int(month), int(day))
+        return datetime_date.strftime("%B %d")
    
     def __str__(self):
         return f'Year: {self.year}, Month: {self.month}, Day: {self.day}'
@@ -32,3 +37,12 @@ class CalanderDate:
             
             # Returns a date based on the current date and the beginning date.
         return response.user_error
+
+def get_date_parts(date):
+        year, month, day = date.split('-')
+        return (year, month, day)
+
+def get_date_month_day_str(date):
+        year, month, day = get_date_parts(date)
+        datetime_date = datetime(int(year), int(month), int(day))
+        return datetime_date.strftime("%B %d")
