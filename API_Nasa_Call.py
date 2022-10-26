@@ -1,7 +1,9 @@
 """
 API calls nasa url to return a picture of the day and its information(url, date, copyright, explanatian, and title)based on the given date 
 then return it to API Manager.
+
 """
+
 
 import requests
 import os 
@@ -37,7 +39,6 @@ def nasa_call(date):
 
         response = requests.get(url,params=query).json()
         
-        # Check if the data is accurate  by date
 
         calendar2 = CalendarDate.CalendarDate(response['date'])
         Date = calendar2.get_date()       
@@ -46,6 +47,8 @@ def nasa_call(date):
         if  Date == date:
             nasa_api_response.data = response
         return nasa_api_response
+
+
 
     except Exception as e:
             nasa_api_response.connection_error = e
