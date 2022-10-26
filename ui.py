@@ -30,4 +30,4 @@ def get_date_info():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port = 1000)
+    app.run()
