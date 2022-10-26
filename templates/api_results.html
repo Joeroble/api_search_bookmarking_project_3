@@ -9,13 +9,20 @@
     <img src="{{ movie_info.poster }}">
 </p>
 
+<h1>NASA Photo Title: {{ nasa_info.title }}</h1>
+
+<p>
+    <img src="{{ nasa_info.image }}" height="500">
+</p>
+
 <h1>For Wikipedia Results</h1>
 <p>click image</p>
 <p>
-    <a href = "https://www.wikipedia.com">
+    <a href = "{{ wiki_link }}">
         <img src="{{ url_for('static', filename='256px-Wikipedia-logo-transparent.png') }}" alt="Wikipedia logo" />
     </a>
 </p>
+
 
 <p>Do you want to try again? <a href="/">Go back to the home page.</a></p>
 

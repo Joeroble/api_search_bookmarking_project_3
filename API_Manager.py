@@ -7,6 +7,7 @@ API Manager can be called by the UI to retrieve those results for display.
 '''
 import API_Wiki_Call
 import API_Nasa_Call
+import API_Movie_Call
 
 """api call and resposne for Wiki, it will bring in the user_calender_date passed to it from ui/main, call upon API_Wiki_Call to make the API connection,
 get the response.  This will then return the response back to ui/main."""
@@ -15,5 +16,9 @@ def api_wiki_call_response(user_calender_date):
     return wiki_api_response
 
 def api_nasa_call_response(user_calender_date):
-    nasa_api_response = API_Nasa_Call.nasa_call
+    nasa_api_response = API_Nasa_Call.nasa_call(user_calender_date)
     return nasa_api_response
+
+def api_moive_call_response(user_calander_date):
+    movie_api_response = API_Movie_Call.movie_call(user_calander_date)
+    return movie_api_response

@@ -23,7 +23,7 @@ movie_api_response = API_Response.API_Response() # Create a global API Response 
 
 def movie_call(date):
     
-    year, month, day = date.split('-') # Date is expected in YYYY-MM-DD format.
+    year, month, day = date # Date is expected in YYYY-MM-DD format.
     query =set_api_discover_params(year, month, day, key)
     data = api_movie_request(movie_discover_url, query)
     movie_raw = get_movie_results(data)

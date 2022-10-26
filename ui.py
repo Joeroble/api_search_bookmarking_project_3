@@ -7,9 +7,8 @@ UI passes the calander object to the API Manager and the API Manager will make c
 to the three APIs using that date. 
 '''
 from flask import Flask, render_template, request
-from API_Movie_Call import movie_call # API_Manager
 import API_Manager
-import API_Database
+import CalendarDate
 
 app = Flask(__name__)
 
@@ -20,14 +19,18 @@ def homepage():
 @app.route('/get_date')
 def get_date_info():
     print('form date is: ', request.args)
-    date_to_search = request.args.get('search_date')  # this function is implemented in calender
-    movie_info = movie_call(date_to_search) # date without spliting
-    API_manager = API_Manager.api_nasa_call_response(date_to_search)
-    nasa_info = API_manager
-    API_Database.insert(date_to_search)
-    API_Database.Select_All()
-    return render_template('api_results.html', movie_info=movie_info.data, nasa_info=nasa_info.data)
+    date_returned = request.args.get('search_date')
+
+    date_for_movie = CalendarDate.get_date_parts(date_returned)
+    date_for_wiki = CalendarDate.get_date_month_day_str(date_returned)
+    date_for_nasa = CalendarDate.check_date_limits(date_returned)
+
+    movie_info = API_Manager.api_moive_call_response(date_for_movie)
+    wiki_info = API_Manager.api_wiki_call_response(date_for_wiki)
+    nasa_info = API_Manager.api_nasa_call_response(date_for_nasa)
+
+    return render_template('api_results.html', movie_info=movie_info.data,wiki_link=wiki_info.data[0],nasa_info=nasa_info.data)
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port = 1000)
+    app.run()
