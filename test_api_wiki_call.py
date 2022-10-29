@@ -12,7 +12,16 @@ class TestAPI_Wiki_call(TestCase):
         example_wiki_api_response = ['October 29', ['October 29'], [''], ['https://en.wikipedia.org/wiki/October_29']]
         mock_wiki_json.side_effect = [example_wiki_api_response]
         wiki_api_response = API_Wiki_Call.API_Wiki_Call(mock_user_date)
-        self.assertTrue(mock_wiki_json, wiki_api_response)
+        self.assertTrue(mock_wiki_json, wiki_api_response.data)
+
+    @patch('requests.Response.json')
+    def test_api_wiki_call_user_error(self, mock_wiki_jason):
+        mock_user_error = 'completegibberishtogetusererror'
+        example_wiki_api_response = [mock_user_error, [],[],[]]
+        mock_wiki_jason.side_effect = [example_wiki_api_response]
+        wiki_api_response = API_Wiki_Call.API_Wiki_Call(mock_user_error)
+        self.assertTrue(mock_wiki_jason, wiki_api_response.user_error)
+
 
     @patch('API_Wiki_Call.API_Wiki_Call', side_effect=Exception)
     def test_api_wiki_call_connection_error(self, wiki_patch):
