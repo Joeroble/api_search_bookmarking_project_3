@@ -56,7 +56,28 @@ class Test_API_Manager(TestCase):
         self.assertEqual(expected_nasa_api_response.data, nasa_api_response.data)
 
     
-#TODO movie_api_response_test
+
+    @patch('API_Movie_Call.movie_call', return_value = API_Response.API_Response(data= {
+        'title': 'Memory Run', 
+        'desc': 'The year is 2015, and big brother is everywhere. The search for immortality is over. '
+        'Science has finally achieved the impossible, undermining the most basic aspect of life: that Mind, Body, and Soul must be one, '
+        'Those who benefit from this new technology will wake up to a new and youthful beginning -' 
+        'the rest of humankind must live a bad dream and wake up to a living nightmare '
+        'that goes beyond life, beyond death, and beyond redemption.', 
+        'poster': 'https://image.tmdb.org/t/p/w500//lhihUhg5ZehO1KHRIIDxz9ka0CZ.jpg'}))
+    def test_api_movie_call_response(self, mock_api_response):
+        mock_user_date = '1995-06-16'
+        expected_movie_api_response = API_Response.API_Response(data ={
+        'title': 'Memory Run', 
+        'desc': 'The year is 2015, and big brother is everywhere. The search for immortality is over. '
+        'Science has finally achieved the impossible, undermining the most basic aspect of life: that Mind, Body, and Soul must be one, '
+        'Those who benefit from this new technology will wake up to a new and youthful beginning -' 
+        'the rest of humankind must live a bad dream and wake up to a living nightmare '
+        'that goes beyond life, beyond death, and beyond redemption.', 
+        'poster': 'https://image.tmdb.org/t/p/w500//lhihUhg5ZehO1KHRIIDxz9ka0CZ.jpg'})
+        movie_api_response = API_Movie_Call.movie_call(mock_user_date)
+        self.assertEqual(expected_movie_api_response.data, movie_api_response.data)
+
 
 if __name__ == '__main__':
     unittest.main()
