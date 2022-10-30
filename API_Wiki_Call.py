@@ -26,6 +26,7 @@ def API_Wiki_Call(user_date):
             if wiki_data_check:
                 data = wiki_date_page_selection[3]
                 wiki_api_response.data = data
+                print(wiki_api_response)
                 return wiki_api_response
             
             else:
