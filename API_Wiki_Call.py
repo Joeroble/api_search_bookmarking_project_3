@@ -20,13 +20,11 @@ def API_Wiki_Call(user_date):
     try:
 
             wiki_date_page_selection = requests.get(url, params = query).json()
-            print(wiki_date_page_selection)
             wiki_data_check = wiki_date_page_selection[3]
 
             if wiki_data_check:
                 data = wiki_date_page_selection[3]
                 wiki_api_response.data = data
-                print(wiki_api_response)
                 return wiki_api_response
             
             else:
@@ -35,5 +33,4 @@ def API_Wiki_Call(user_date):
         
     except Exception as e:
             wiki_api_response.connection_error = e
-            print(wiki_api_response)
             return wiki_api_response
