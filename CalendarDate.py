@@ -6,11 +6,11 @@ class CalanderDate:
     """Represents API information to be used for calls from the user and stores that information
     for easier use."""
 
-    def __init__(self,date):
-        self.date = date # Date is expected in YYYY-MM-DD format.
+    def __init__(self,str_date):
+        self.str_date = str_date # Date is expected in YYYY-MM-DD format.
     
     def get_date_parts(self):
-        year, month, day = self.date.split('-')
+        year, month, day = self.str_date.split('-')
         return (year, month, day)
     
     def get_date_month_day_str(self):
@@ -21,7 +21,7 @@ class CalanderDate:
     def __str__(self):
         return f'Year: {self.year}, Month: {self.month}, Day: {self.day}'
 
-    def check_date(self,date):
+    def check_date(self,str_date):
         
         today_date = date.today() 
         beginning_date = datetime.date(1995, 6, 16)  
@@ -51,7 +51,17 @@ def get_date_month_day_str(date):
     datetime_date = datetime(int(year), int(month), int(day))
     return datetime_date.strftime("%B %d")
 
+def get_date_for_display(date):
+    year, month, day = get_date_parts(date)
+    date_to_display = datetime(int(year), int(month), int(day))
+    return date_to_display.strftime("%B %d %Y")
+
 def check_date_limits(date):
+    '''
+    Checks each part of the date starting with year, then month, then day to make sure it is not before June 16th 1995
+
+    If the day is before that day it will return the day June 16th 1995.
+    '''
     year, month, day = get_date_parts(date)
     if int(year) > 1995: # if it is greater than 1995 we know that they are not going to hit the lower limit
         return date
