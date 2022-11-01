@@ -5,18 +5,17 @@ from datetime import date, datetime
 
 def check_date(date):
 
-
         
-        today_date = date.today() 
-        beginning_date = datetime.date(1995, 6, 16)  
+    today_date = date.today() 
+    beginning_date = datetime.date(1995, 6, 16)  
 
-        # Checks if the date is within the beginning_date and today_date.
-        if not (date <= today_date and date >= beginning_date):
-           acceptable_date = True
+    # Checks if the date is within the beginning_date and today_date.
+    if not (date <= today_date and date >= beginning_date):
+        acceptable_date = True
 
-        else:    
-            acceptable_date = False
-        return acceptable_date
+    else:    
+        acceptable_date = False
+    return acceptable_date
    
 def get_date_parts(date):
     try:
