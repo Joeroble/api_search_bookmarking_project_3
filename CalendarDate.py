@@ -1,25 +1,6 @@
 import datetime
 from datetime import date, datetime
-import API_Response
 
-class CalanderDate:
-    """Represents API information to be used for calls from the user and stores that information
-    for easier use."""
-
-    def __init__(self,date):
-        self.date = date # Date is expected in YYYY-MM-DD format.
-    
-    def get_date_parts(self):
-        year, month, day = self.date.split('-')
-        return (year, month, day)
-    
-    def get_date_month_day_str(self):
-        year, month, day = self.get_date_parts()
-        datetime_date = datetime(int(year), int(month), int(day))
-        return datetime_date.strftime("%B %d")
-   
-    def __str__(self):
-        return f'Year: {self.year}, Month: {self.month}, Day: {self.day}'
 
 def check_date(date):
         
@@ -32,7 +13,6 @@ def check_date(date):
 
         else:    
             acceptable_date = False
-            
         return acceptable_date
    
 def get_date_parts(date):
