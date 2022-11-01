@@ -52,9 +52,14 @@ def save_the_day():
         bookmark_data = prep_bookmark_info(
             ['date','movie_title', 'movie_img', 'nasa_title', 'nasa_img', 'wiki_link'],
             [saved_date, movie_title, movie_img, nasa_title, nasa_image, wiki_link])
-        # API_Manager.save_to_database(bookmark_data)
+        API_Manager.save_to_database(bookmark_data)
 
     return redirect("/")
+
+@app.route('/bookmarks')
+def display_bookmarks():
+    bookmark_data = API_Manager.get_bookmarks()
+    return render_template('bookmarks.html', bookmark_data=bookmark_data)
 
 
 def prep_bookmark_info(list_of_keys, list_of_values):

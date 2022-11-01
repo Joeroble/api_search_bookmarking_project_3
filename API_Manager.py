@@ -24,5 +24,8 @@ def api_moive_call_response(user_calander_date):
     movie_api_response = API_Movie_Call.movie_call(user_calander_date)
     return movie_api_response
 
-def save_to_database(data):
-    API_Database.insert(data)
+def save_to_database(bookmark_data):
+    API_Database.insert(bookmark_data)
+
+def get_bookmarks():
+    return API_Database.Select_All()
