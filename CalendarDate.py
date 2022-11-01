@@ -2,7 +2,10 @@ import datetime
 from datetime import date, datetime
 
 
+
 def check_date(date):
+
+
         
         today_date = date.today() 
         beginning_date = datetime.date(1995, 6, 16)  
@@ -28,7 +31,17 @@ def get_date_month_day_str(date):
     datetime_date = datetime(int(year), int(month), int(day))
     return datetime_date.strftime("%B %d")
 
+def get_date_for_display(date):
+    year, month, day = get_date_parts(date)
+    date_to_display = datetime(int(year), int(month), int(day))
+    return date_to_display.strftime("%B %d %Y")
+
 def check_date_limits(date):
+    '''
+    Checks each part of the date starting with year, then month, then day to make sure it is not before June 16th 1995
+
+    If the day is before that day it will return the day June 16th 1995.
+    '''
     year, month, day = get_date_parts(date)
     if int(year) > 1995: # if it is greater than 1995 we know that they are not going to hit the lower limit
         return date

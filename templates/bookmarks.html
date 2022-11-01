@@ -1,0 +1,52 @@
+
+
+{% extends 'base.html' %}
+{% block content %}
+
+<style type="text/css">
+    tr:nth-of-type(2n){
+        border: 1px solid black;
+        background-color: rgba (150, 150, 150, 0.5);
+    }
+    td{
+        padding: 8px 8px;
+        border: 1px solid black;
+    }
+</style>
+
+<h2>Saved Bookmarks</h2>
+
+<table style="margin-left: 20px;">
+    <th>
+        <tr style="color: wheat;">
+        <td>Search Date</td>
+        <td>Movie Title</td>
+        <td>Movie Image Link</td>
+        <td>Nasa Image</td>
+        <td>Nasa Image Link</td>
+        <td>Wikipedia Link</td>
+        </tr>
+    </th>
+{%for bookmark in bookmark_data%}
+<tr>
+    <td>{{ bookmark[0] }}</td>
+    <td>{{ bookmark[1] }}</td>
+    <td>
+        <a href="{{ bookmark[2] }}"> Movie Image</a>
+    </td>
+    <td>{{ bookmark[3] }}</td>
+    <td>
+        <a href="{{ bookmark[4] }}"> NASA Image</a>
+    </td>
+    <td>
+        <a href="{{ bookmark[5] }}">{{ bookmark[5] }}</a>
+    </td>
+
+{%endfor%}
+</tr>
+</table>
+
+
+
+
+{% endblock %}

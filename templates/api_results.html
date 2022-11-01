@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Movie Title: {{ movie_info.title }}</h1>
+<h1>Results for: {{ date_info.display }}</h1>
+
+<h2>Movie Title: {{ movie_info.title }}</h2>
 
 <p>Movie Overview: {{ movie_info.desc }}</p>
 
@@ -9,13 +11,13 @@
     <img src="{{ movie_info.poster }}">
 </p>
 
-<h1>NASA Photo Title: {{ nasa_info.title }}</h1>
+<h2>NASA Photo Title: {{ nasa_info.title }}</h2>
 
 <p>
     <img src="{{ nasa_info.image }}" height="500">
 </p>
 
-<h1>For Wikipedia Results</h1>
+<h2>For Wikipedia Results</h2>
 <p>click image</p>
 <p>
     <a href = "{{ wiki_link }}">
@@ -23,7 +25,20 @@
     </a>
 </p>
 
+<p>Would you like to save this search?</p>
+<form method="get" action="/save">
+    <input type="hidden" name="search_day" value="{{ date_info.hidden }}">
+    <input type="hidden" name="movie_title" value="{{ movie_info.title }}">
+    <input type="hidden" name="movie_img" value="{{ movie_info.poster }}">
+    <input type="hidden" name="nasa_title" value="{{ nasa_info.title }}">
+    <input type="hidden" name="nasa_img" value="{{ nasa_info.image }}">
+    <input type="hidden" name="wiki_url" value="{{ wiki_link }}">
+    <button type="submit" name="save_the_day" value="True" >
+        Save this Search
+    </button>
+</form>
 
+<p>Or</p>
 <p>Do you want to try again? <a href="/">Go back to the home page.</a></p>
 
 {% endblock %}

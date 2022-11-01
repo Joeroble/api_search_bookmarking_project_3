@@ -34,5 +34,3 @@ def API_Wiki_Call(user_date):
     except Exception as e:
             wiki_api_response.connection_error = e
             return wiki_api_response
-
-  
