@@ -21,23 +21,20 @@ class CalanderDate:
     def __str__(self):
         return f'Year: {self.year}, Month: {self.month}, Day: {self.day}'
 
-    def check_date(self,date):
+def check_date(date):
         
         today_date = date.today() 
         beginning_date = datetime.date(1995, 6, 16)  
 
-
-        # Create Object of API Response
-        response = API_Response.API_Response()
-
         # Checks if the date is within the beginning_date and today_date.
         if not (date <= today_date and date >= beginning_date):
-            response.user_error = 'Error with the date provided by user, please ensure date is not in the future.'
+           acceptable_date = True
 
+        else:    
+            acceptable_date = False
             
-            # Returns a date based on the current date and the beginning date.
-        return response.user_error
-
+        return acceptable_date
+   
 def get_date_parts(date):
     try:
         year, month, day = date.split('-')
