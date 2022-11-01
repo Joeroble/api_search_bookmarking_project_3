@@ -1,7 +1,9 @@
 import sqlite3 
 
-def insert(bookmark_data):
-    
+def setup_db():
+    '''
+    Makes the database for the user.
+    '''
     #Create Connection API DB
     conn = sqlite3.connect('API.db')   
     c = conn.cursor()
@@ -13,10 +15,15 @@ def insert(bookmark_data):
     c.execute(table_sql)
     
     conn.commit()
+    conn.close()
 
+def insert(bookmark_data):
     '''
     Retrive the data
     '''
+    conn = sqlite3.connect('API.db')  
+
+    # Reads the individual data from a dictionary passed to the insert call.
     search_date = bookmark_data['date']
     movie_title = bookmark_data['movie_title']
     movie_url = bookmark_data['movie_img']
@@ -37,6 +44,7 @@ def insert(bookmark_data):
 
     # Commit method to make changes in the table
     conn.commit()
+    conn.close()
         
 def Select_All():
     #Creat Connection API DB
@@ -48,6 +56,7 @@ def Select_All():
     conn.commit()
     c.execute("SELECT * FROM API_Results ")
     table = c.fetchall()
+    conn.close()
     return table
     # for i in Table:
     #     print("Date: ", i[0])
