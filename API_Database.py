@@ -1,5 +1,4 @@
 import sqlite3 
-import API_Manager
 
 def insert(bookmark_data):
     
@@ -48,8 +47,8 @@ def Select_All():
     
     conn.commit()
     c.execute("SELECT * FROM API_Results ")
-    Table = c.fetchall()
-    return Table
+    table = c.fetchall()
+    return table
     # for i in Table:
     #     print("Date: ", i[0])
     #     print("Movie Title: ", i[1])
