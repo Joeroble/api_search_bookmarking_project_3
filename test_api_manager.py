@@ -7,7 +7,10 @@ import API_Movie_Call
 import API_Nasa_Call
 import API_Response
 
-class Test_API_Manager(TestCase):
+
+"""Various tests for the API_Manager, hese test ensures the response is saving and returning correctly for each api call."""
+class TestAPI_Manager(TestCase):
+
 
     @patch('API_Wiki_Call.API_Wiki_Call', return_value = API_Response.API_Response(data= ['https://en.wikipedia.org/wiki/October_29']))
     def test_api_wiki_call_response(self, mock_api_response):
@@ -15,7 +18,6 @@ class Test_API_Manager(TestCase):
         expected_wiki_api_response = API_Response.API_Response(data=['https://en.wikipedia.org/wiki/October_29'])
         wiki_api_response = API_Wiki_Call.API_Wiki_Call(mock_user_date)
         self.assertEqual(expected_wiki_api_response.data, wiki_api_response.data)
-
 
 
     @patch('API_Nasa_Call.nasa_call', return_value = API_Response.API_Response(data= {
