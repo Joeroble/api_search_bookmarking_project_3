@@ -17,6 +17,17 @@ UI handles flask, displaying the information to the user, and calling on api man
 
 The unittest tests test API_Manager, API_Respoonse, CalendarDate, API_Movie_Call, API_Nasa_Call, API_Wiki_Call currently.
 
+API keys - 
+
+Movie Database - Go to https://www.themoviedb.org/signup to sign up for a new account
+
+From there you can go into the account settings to get the API key, or click the link provided on this page - https://developers.themoviedb.org/3/getting-started/introduction
+
+NASA - Go to https://api.nasa.gov/ 
+You will then supply your email, and what you are using it for (optional).  They will email you the key, and the key itself will populate on the screen.
+
+Wiki - Does not require an API key
+
 Parts of the code have been modified or converted from class examples, and homework.
 
 
