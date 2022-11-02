@@ -21,7 +21,7 @@ def insert(bookmark_data):
     '''
     Retrive the data
     '''
-    if not verify_new_date(bookmark_data['date']):
+    if verify_new_date(bookmark_data['date']) == False:
         conn = sqlite3.connect('API.db')  
 
         # Reads the individual data from a dictionary passed to the insert call.
@@ -72,11 +72,12 @@ def verify_new_date(search_date):
     conn = sqlite3.connect('API.db')
     
     cursor = conn.execute('SELECT EXISTS (SELECT * FROM API_Results WHERE Date = (?));', (search_date, ))
-    
+    print(cursor)
 
     results = cursor.fetchone()
+    print(results)
     conn.close()
-    if results:
+    if results[0] == 1:
         return True
     else:
         return False
