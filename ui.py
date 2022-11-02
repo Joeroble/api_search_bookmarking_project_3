@@ -22,7 +22,7 @@ def homepage():
 def get_date_info():
     print('form date is: ', request.args)
     date_returned = request.args.get('search_date')
-    if date_returned:
+    if CalendarDate.check_date(date_returned):
         display_date = CalendarDate.get_date_for_display(date_returned)
         date_for_movie = CalendarDate.get_date_parts(date_returned)
         date_for_wiki = CalendarDate.get_date_month_day_str(date_returned)
@@ -39,7 +39,7 @@ def get_date_info():
             nasa_info=nasa_info.data,
             date_info={'display':display_date,'hidden':date_returned})
     else:
-        return render_template('/error')
+        return render_template('/error.html')
 
 @app.route('/save')
 def save_the_day():

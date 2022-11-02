@@ -5,12 +5,12 @@ from datetime import date, datetime
 
 def check_date(date):
 
-        
-    today_date = date.today() 
-    beginning_date = datetime.date(1995, 6, 16)  
+    check_date = datetime.fromisoformat(date)
+    today_date = datetime.today() 
+    beginning_date = datetime(1995, 6, 16)  
 
     # Checks if the date is within the beginning_date and today_date.
-    if not (date <= today_date and date >= beginning_date):
+    if (check_date > today_date and check_date < beginning_date):
         acceptable_date = True
 
     else:    

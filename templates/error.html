@@ -1,1 +1,15 @@
-<p>Sorry, Something went wrong.</p>
+{% extends 'base.html' %}
+{% block content %}
+
+
+<h2>Sorry, Something went wrong.</h2>
+
+<p>
+    <img src="{{ url_for('static', filename='michal-matlon-4ApmfdVo32Q-unsplash.jpg') }}" alt="Error Image" height="600px">
+</p>
+
+<h2>
+    Click here if you <a href="/">would like to try again.</a>
+</h2>
+
+{% endblock %}
