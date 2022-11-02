@@ -1,8 +1,6 @@
 """API Response handles the data returned or not from an API, it stores the data returned."""
 
 
-
-
 class API_Response:
     def __init__(self, data = None, user_error = None, connection_error = None):
         self.data = data
