@@ -4,20 +4,20 @@ from datetime import datetime
 
 
 def check_date(date):
-    try:
+    try: 
         check_date = datetime.fromisoformat(date)
         today_date = datetime.today() 
         beginning_date = datetime(1995, 6, 16)  
-        
+
         # Checks if the date is within the beginning_date and today_date.
-        if check_date <= today_date and check_date >= beginning_date:
+        if (check_date <= today_date and check_date >= beginning_date):
             acceptable_date = True
-        else:   
+
+        else:    
             acceptable_date = False
         return acceptable_date
-    except:
-        acceptable_date = False
-        return acceptable_date
+    except Exception as e:
+        return False
    
 def get_date_parts(date):
     try:
