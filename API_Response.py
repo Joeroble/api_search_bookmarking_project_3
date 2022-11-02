@@ -1,6 +1,5 @@
-"""API Response handles the data returned or not from an API, it stores the data returned."""
-
-
+"""API Response handles the data returned or not from an API, it stores the data returned.  It also will store information related to a user_error, or a connection
+error if needed."""
 
 
 class API_Response:

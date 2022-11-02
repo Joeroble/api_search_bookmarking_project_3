@@ -3,8 +3,6 @@ API calls nasa url to return a picture of the day and its information(url, date,
 then return it to API Manager.
 
 """
-
-
 import requests
 import os 
 from pprint import pprint

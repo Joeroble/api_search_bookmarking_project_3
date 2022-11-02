@@ -1,9 +1,13 @@
 import datetime
-from datetime import date, datetime
+from datetime import datetime
 
+"""CalendarDate has functions that handle checking that it is a valid date, separating the date out into parts, formatters so the dates match what the API calls
+require and the date for display."""
 
 
 def check_date(user_date):
+
+
     try: 
         check_date = datetime.fromisoformat(date)
         today_date = datetime.today() 
