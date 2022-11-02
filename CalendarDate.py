@@ -6,10 +6,8 @@ require and the date for display."""
 
 
 def check_date(user_date):
-
-
     try: 
-        check_date = datetime.fromisoformat(date)
+        check_date = datetime.fromisoformat(user_date)
         today_date = datetime.today() 
         beginning_date = datetime(1995, 6, 16)  
 
