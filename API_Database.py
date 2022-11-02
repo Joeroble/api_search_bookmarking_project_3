@@ -1,11 +1,13 @@
 import sqlite3 
 
+ap_db_url = 'API.db'
+
 def setup_db():
     '''
     Makes the database for the user.
     '''
     #Create Connection API DB
-    conn = sqlite3.connect('API.db')   
+    conn = sqlite3.connect(ap_db_url)   
     c = conn.cursor()
     #Create DB
     #c.execute("CREATE DATABASE API")
