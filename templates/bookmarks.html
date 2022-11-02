@@ -32,14 +32,20 @@
     <td>{{ bookmark[0] }}</td>
     <td>{{ bookmark[1] }}</td>
     <td>
-        <a href="{{ bookmark[2] }}"> Movie Image</a>
+        <a href="{{ bookmark[2] }}"> 
+            <img src="{{ bookmark[2] }}" alt="Movie Image" height="100px">
+        </a>
     </td>
     <td>{{ bookmark[3] }}</td>
     <td>
-        <a href="{{ bookmark[4] }}"> NASA Image</a>
+        <a href="{{ bookmark[4] }}">
+            <img src="{{ bookmark[4] }}" alt="Space Image" height="60px" width="60px"/>
+        </a>
     </td>
     <td>
-        <a href="{{ bookmark[5] }}">{{ bookmark[5] }}</a>
+        <a href="{{ bookmark[5] }}">
+            <img src="{{ url_for('static', filename='256px-Wikipedia-logo-transparent.png') }}" alt="Wikipedia logo" height="60px"/>
+        </a>
     </td>
 
 {%endfor%}

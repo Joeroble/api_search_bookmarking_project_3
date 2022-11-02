@@ -1,10 +1,9 @@
 import datetime
-from datetime import date, datetime
+from datetime import datetime
 
 
 
 def check_date(date):
-
     try: 
         check_date = datetime.fromisoformat(date)
         today_date = datetime.today() 

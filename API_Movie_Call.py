@@ -97,10 +97,7 @@ def get_movie_image(poster_path) -> str:
     '''
     movie_poster_url = f'{movie_images_url}{poster_path}'
     return movie_poster_url
-    
-
-#TODO Some movies do not have poster paths, and some movies are straight to DVD. Need to add some functions to search through the list of 20 movies
-# Think maybe it should return the highest rated movie from the given day with a poster link. 
+     
 
 if __name__ == '__main__':
     movie_call()
