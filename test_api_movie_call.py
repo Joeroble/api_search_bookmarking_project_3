@@ -5,8 +5,8 @@ from unittest.mock import patch
 import API_Movie_Call
 import CalendarDate
 
-
-class Test_API_Movie_call(TestCase):
+"""Tests the api call is handling the data returned from the api, saving and returning it correctly."""
+class TestAPI_Movie_call(TestCase):
 
     @patch('requests.Response.json')
     def test_api_movie_call_data_returned(self, mock_movie_json):
@@ -46,7 +46,7 @@ class Test_API_Movie_call(TestCase):
         self.assertEqual(expected_movie_api_response_data, movie_api_response.data)
 
 
-
+    "Tests that the api call will handle an exception and return the error saved in the ?_api_response.connection_error"
     @patch('API_Movie_Call.api_movie_request', side_effect=Exception)
     def test_api_wiki_call_connection_error(self, movie_patch):
         with self.assertRaises(Exception) as example_error:

@@ -6,10 +6,11 @@ import API_Nasa_Call
 
 class TestAPI_Nasa_call(TestCase):
 
+
+    """Tests the api call is handling the data returned from the api, saving and returning it correctly."""
     @patch('requests.Response.json')
     def test_api_wiki_call_data_returned(self, mock_nasa_json):
         mock_user_date = '1995-06-16'
-        
         example_nasa_api_response = {
                 'date': '1995-06-16',
                 'explanation': "Today's Picture:    Explanation:  If the Earth could somehow "
@@ -53,6 +54,7 @@ class TestAPI_Nasa_call(TestCase):
         self.assertEqual(expected_nasa_api_response_data, nasa_api_response.data)
 
 
+    "Tests that the api call will handle an exception and return the error saved in the ?_api_response.connection_error"
     @patch('API_Nasa_Call.nasa_call', side_effect=Exception)
     def test_api_nasa_call_connection_error(self, nasa_patch):
         with self.assertRaises(Exception) as example_error:
