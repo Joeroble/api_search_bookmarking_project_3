@@ -26,7 +26,7 @@ def get_date_info():
         display_date = CalendarDate.get_date_for_display(date_returned)
         date_for_movie = CalendarDate.get_date_parts(date_returned)
         date_for_wiki = CalendarDate.get_date_month_day_str(date_returned)
-        date_for_nasa = CalendarDate.get_date_parts(date_returned)
+        date_for_nasa = date_returned
 
         movie_info = API_Manager.api_movie_call_response(date_for_movie)
         wiki_info = API_Manager.api_wiki_call_response(date_for_wiki)
