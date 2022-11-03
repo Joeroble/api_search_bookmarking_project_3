@@ -1,3 +1,4 @@
+<h1>About The App</h1>
 This application utiziles flask, a database, and APIs.  You select a date on the main page, and click search, this will then search the NASA APOD, Movie Database, and Wikipedia.  It will then return a movie, and APOD from that date in time.  Plus the wiki article covering events that happened on that day in history.  The user will then have the option to save this data, and can retrieve it later on another page to go back to the information from that day saved.
 
 The program is broken up into 8 parts, and tests - the API_Database, API_Manager, API calls (Movie, Nasa, Wiki), CalendarDate, API_Response, UI, and unittests.
@@ -17,7 +18,7 @@ UI handles flask, displaying the information to the user, and calling on api man
 
 The unittest tests test API_Manager, API_Respoonse, CalendarDate, API_Movie_Call, API_Nasa_Call, API_Wiki_Call currently.
 
-API keys - 
+## API keys - 
 
 Movie Database - Go to https://www.themoviedb.org/signup to sign up for a new account
 
@@ -30,8 +31,39 @@ Wiki - Does not require an API key
 
 Parts of the code have been modified or converted from class examples, and homework.
 
+## How to setup
+
+set the API keys on a windows machine by going to Enviorment Variables and adding to new user variables
+
+> Variable Name: MOVIE_KEY
+> Value: {Your Movie API Key}
+
+> Variable Name: NASA_KEY
+> Value: {Your NASA Aprod API Key}
+
+After setting the keys your machine may need to restart before they keys can go into effect.
+
+Once the keys are set the next steps will be done through a terminal
+
+Install the required libraries by running the following commands in a terminal
+> pip install -r requirements.txt
+> set FLASK_APP=ui.py
+> flask run
+
+Flask will then return a link in the terminal with an address that is running the app that you can use ctrl + click
+to follow. 
+
+Alternativly once flask is running you could also enter the following address in a browsers address bar:
+> http://127.0.0.1:5000 (This is a local server being hosted by your computer)
+
+ 
 
 
 
-Photo by <a href="https://unsplash.com/@michalmatlon?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Michal Matlon</a> on <a href="https://unsplash.com/s/photos/something-went-wrong?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+## Photo Credits
+Error Page Photo by <a href="https://unsplash.com/@michalmatlon?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Michal Matlon</a> on <a href="https://unsplash.com/s/photos/something-went-wrong?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+
+Movie photos from https://www.themoviedb.org/
+
+Nasa photos from https://apod.nasa.gov/
   
